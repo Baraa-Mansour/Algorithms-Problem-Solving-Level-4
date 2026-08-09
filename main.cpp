@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// proplem-1: print the text of number
+// proplem-1: Print the text of number
 const static string TextNumber[] = { 
     "",
     "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", 
@@ -98,23 +98,51 @@ string NumberToText(int Number)
 }
 //
 
-// proplem-2: is leap year
+// proplem-2: Is leap year
 bool IsLeapYear(short Year)
 {
-    if (Year % 400 == 0)
-        return true;
+    return  (Year % 400 == 0) || ((Year % 100 != 0) && (Year % 4 == 0));
+}
+//
 
-    if (Year % 100 == 0)
-        return false;
+// proplem-3: Get Year Days, Hours, Minutes and Seconds
+short YearDays(short Year)
+{
+    return IsLeapYear(Year) ? 366 : 365;
+}
+short YearHours(short Year)
+{
+    short Days = YearDays(Year);
 
-    if (Year % 4 == 0)
-        return true;
+    return Days * 24;
+}
+int YearMinutes(short Year)
+{
+    short Hours = YearHours(Year);
 
-    return  false;
+    return Hours * 60;
+}
+int YearSeconds(short Year)
+{
+    int Minutes = YearMinutes(Year);
+
+    return Minutes * 60;
+}
+
+void PrintYearComponent(int Year)
+{
+    int Days = YearDays(Year);
+    cout << Days << endl;
+    int Hours = YearHours(Year);
+    cout << Hours << endl;
+    int Minutes = YearMinutes(Year);
+    cout << Minutes << endl;
+    int Seconds = YearSeconds(Year);
+    cout << Seconds << endl;
 }
 //
 
 int main()
 {
-    cout << IsLeapYear(2000);
+    PrintYearComponent(2000);
 }
