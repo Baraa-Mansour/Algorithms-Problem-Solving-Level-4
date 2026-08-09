@@ -98,7 +98,23 @@ string NumberToText(int Number)
 }
 //
 
+// proplem-2: is leap year
+bool IsLeapYear(short Year)
+{
+    if (Year % 400 == 0)
+        return true;
+
+    if (Year % 100 == 0)
+        return false;
+
+    if (Year % 4 == 0)
+        return true;
+
+    return  false;
+}
+//
+
 int main()
 {
-    std::cout << NumberToText(290000000);
+    cout << IsLeapYear(2000);
 }
