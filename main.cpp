@@ -129,11 +129,11 @@ int YearSeconds(short Year)
     return Minutes * 60;
 }
 
-void PrintYearComponent(int Year)
+void PrintYearComponent(short Year)
 {
-    int Days = YearDays(Year);
+    short Days = YearDays(Year);
     cout << Days << endl;
-    int Hours = YearHours(Year);
+    short Hours = YearHours(Year);
     cout << Hours << endl;
     int Minutes = YearMinutes(Year);
     cout << Minutes << endl;
@@ -142,7 +142,60 @@ void PrintYearComponent(int Year)
 }
 //
 
+// proplem-4: Get month days, hours, minutes and seconds
+const static short MonthsDays[] = {
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+};
+short MonthDays(short Month, short Year)
+{
+    if (Month < 1 || Month > 12)
+        return 0;
+
+    if (Month == 2)
+    {
+        return IsLeapYear(Year) ? 29 : 28;
+    }
+
+    return MonthsDays[Month - 1];
+}
+short MonthHours(short Month, short Year)
+{
+    return MonthDays(Month, Year) * 24;
+}
+int MonthMinutes(short Month, short Year)
+{
+    return MonthHours(Month, Year) * 60;
+}
+int MonthSeconds(short Month, short Year)
+{
+    return MonthMinutes(Month, Year) * 60;
+}
+
+void PrintMonthComponent(short Month, short Year)
+{
+    short Days = MonthDays(Month, Year);
+    cout << Days << endl;
+    short Hours = MonthHours(Month, Year);
+    cout << Hours << endl;
+    int Minutes = MonthMinutes(Month, Year);
+    cout << Minutes << endl;
+    int Seconds = MonthSeconds(Month, Year);
+    cout << Seconds << endl;
+}
+//
+
 int main()
 {
-    PrintYearComponent(2000);
+    PrintMonthComponent(2, 1971);
 }
