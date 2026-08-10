@@ -167,7 +167,7 @@ short MonthDays(short Month, short Year)
         return IsLeapYear(Year) ? 29 : 28;
     }
 
-    return MonthsDays[Month - 1];
+    return (Month == 2) ? (IsLeapYear(Year) ? 29 : 28) : MonthsDays[Month - 1];
 }
 short MonthHours(short Month, short Year)
 {
@@ -195,7 +195,31 @@ void PrintMonthComponent(short Month, short Year)
 }
 //
 
+// proplem-5: Get day name and order from gaven date
+const static string WeakDays[] = {
+    "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"
+};
+short DayOrderInWeak(short Year, short Month, short Day)
+{
+    short a, y, m;
+    a = (14 - Month) / 12;
+    y = Year - a;
+    m = Month + (12 * a) - 2;
+    // Gregorian:
+    //0:sun, 1:Mon, 2:Tue...etc
+    return (Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7;
+}
+void PrintDayNameAndOrder(short Year, short Month, short Day)
+{
+    short DayIndex = DayOrderInWeak(Year, Month, Day);
+
+    cout << Day << "/" << Month << "/" << Year << endl;
+    cout << "Day Order: " << DayIndex << endl;
+    cout << "Day Name: " << WeakDays[DayIndex] << endl;
+}
+//
+
 int main()
 {
-    PrintMonthComponent(2, 1971);
+    PrintDayNameAndOrder(2022, 9, 20);
 }
