@@ -268,8 +268,26 @@ void PrintMonthCalnder(short Year, short Month)
 }
 //
 
+// proplem-7: Print Year Calnder
+void PrintYearCalnderHeader(short Year)
+{
+    cout << "_________________________________" << endl << endl;
+    cout << "              " << Year << endl;
+    cout << "_________________________________" << endl << endl;    
+}
+void PrintYearCalender(short Year)
+{
+    PrintYearCalnderHeader(Year);
+
+    for (int i = 1; i < 13; i++)
+    {
+        PrintMonthCalnder(Year, i);
+        cout << endl;
+    }
+}
+//
 
 int main()
 {
-    PrintMonthCalnder(2022, 9);
+    PrintYearCalender(2022);
 }
