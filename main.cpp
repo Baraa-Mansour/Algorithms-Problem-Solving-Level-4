@@ -287,7 +287,23 @@ void PrintYearCalender(short Year)
 }
 //
 
+// proplem-8: Calculate total days from the begining of the year
+short TotalDaysFromYearStart(short Year, short Month, short Day)
+{
+    short Total = 0;
+    
+    for (int i = 1; i < Month; i++)
+    {
+        Total += MonthDays(i, Year);
+    }
+
+    Total += Day;
+
+    return Total;
+}
+//
+
 int main()
 {
-    PrintYearCalender(2022);
+    cout << TotalDaysFromYearStart(2022, 9, 20);
 }
