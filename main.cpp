@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <iomanip> // Add this header for setw
 using namespace std;
 
 // proplem-1: Print the text of number
@@ -219,7 +219,57 @@ void PrintDayNameAndOrder(short Year, short Month, short Day)
 }
 //
 
+// proplem-6: Print Month Calnder
+const static string Months[12] = { 
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep",
+    "Oct", "Nov", "Dec"
+};
+void PrintMonthCalnderHeader(string MonthName)
+{
+    cout << "_______________" << MonthName << "_______________" << endl << endl;
+    cout << "SUN  ";
+    cout << "MON  ";
+    cout << "TUE  ";
+    cout << "WED  ";
+    cout << "THU  ";
+    cout << "FRI  ";
+    cout << "SAT  ";
+    cout << endl;
+}
+void PrintMonthCalnder(short Year, short Month)
+{
+    string MonthName = Months[Month - 1];
+    short FirstDayIndex = DayOrderInWeak(Year, Month, 1);
+    short NumberOfDays = MonthDays(Month, Year);
+    string EmptyDayPlaceHolder = "     ";
+
+    PrintMonthCalnderHeader(MonthName);
+
+    int i = 0;
+    for (i = 0; i < FirstDayIndex; i++)
+    {
+        cout << EmptyDayPlaceHolder;
+    }
+
+    for (int j = 1; j <= NumberOfDays; j++)
+    {
+        cout << setw(3) << j << "  ";
+        
+        if (++i == 7)
+        {
+            i = 0;
+            cout << endl;
+        }
+    }
+
+    cout << endl << "_________________________________" << endl;
+}
+//
+
+
 int main()
 {
-    PrintDayNameAndOrder(2022, 9, 20);
+    PrintMonthCalnder(2022, 9);
 }
