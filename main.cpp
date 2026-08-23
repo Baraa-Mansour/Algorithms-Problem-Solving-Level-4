@@ -335,9 +335,46 @@ stDate GetDateFromTotalDays(short Year, short Days)
 }
 //
 
+// proplem-10: Add days for Date
+stDate AddDaysForDate(short Days, stDate Date)
+{
+    Days += Date.Day;
+    while (true)
+    {
+        short MonthTotalDays = MonthDays(Date.Month, Date.Year);
+
+        if (Days >= MonthTotalDays)
+        {
+            Days -= MonthTotalDays;
+            if (Date.Month == 12)
+            {
+                Date.Year++;
+                Date.Month = 1;
+            }
+            else
+            {
+                Date.Month++;
+            }
+        }
+        else
+        {
+            Date.Day = Days;
+            break;
+        }
+    }
+
+    return Date;
+}
+//
+
+
 int main()
 {
-    stDate date =  GetDateFromTotalDays(2022, 263);
+    stDate Date;
+    Date.Day = 10;
+    Date.Month = 10;
+    Date.Year = 2022;
+    stDate NewDate =  AddDaysForDate(2500, Date);
 
-    cout << date.Day << "/" << date.Month << "/" << date.Year << endl;
+    cout << NewDate.Day << "/" << NewDate.Month << "/" << NewDate.Year << endl;
 }
