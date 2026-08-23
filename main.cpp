@@ -303,7 +303,41 @@ short TotalDaysFromYearStart(short Year, short Month, short Day)
 }
 //
 
+// proplem-9: Take total days and convert them to date in year
+struct stDate
+{
+    short Year = 1971;
+    short Month = 1;
+    short Day = 1;
+};
+stDate GetDateFromTotalDays(short Year, short Days)
+{
+    stDate Date;
+    Date.Year = Year;
+
+    while(true)
+    {
+        short MonthTotalDays = MonthDays(Date.Month, Year);
+
+        if (Days >= MonthTotalDays)
+        {
+            Days -= MonthTotalDays;
+            Date.Month++;
+        }
+        else
+        {
+            Date.Day = Days;
+            break;
+        }
+    }
+
+    return Date;
+}
+//
+
 int main()
 {
-    cout << TotalDaysFromYearStart(2022, 9, 20);
+    stDate date =  GetDateFromTotalDays(2022, 263);
+
+    cout << date.Day << "/" << date.Month << "/" << date.Year << endl;
 }
