@@ -807,10 +807,28 @@ void PrintDate(stDate Date)
 }
 //
 
-// problem-20: 
+// problem-20: Is date1 after date2
 bool IsDate1AfterDate2(stDate Date1, stDate Date2)
 {
     return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
+}
+//
+
+// problem-21: compare dates
+enum enDateCompareResult
+{
+    BEFORE = -1,
+    AFTER = 1,
+    EQUAL = 0
+};
+enDateCompareResult CompareDates(stDate Date1, stDate Date2)
+{
+    if (IsDate1BeforeDate2(Date1, Date2))
+        return BEFORE;
+    else if (IsDate1AfterDate2(Date1, Date2))
+        return AFTER;
+    else
+        return EQUAL;
 }
 //
 
@@ -821,9 +839,10 @@ int main()
     Date1.Month = 1;
     Date1.Year = 2022;
 
-    short Vacations = 23;
+    stDate Date2;
+    Date2.Day = 1;
+    Date2.Month = 1;
+    Date2.Year = 2000;
 
-    stDate Date2 = CalculateVacationReturnDate(Date1, Vacations);
-
-    PrintDate(Date2);
+    cout << CompareDates(Date1, Date2);
 }
