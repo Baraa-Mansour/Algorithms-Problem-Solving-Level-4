@@ -807,6 +807,13 @@ void PrintDate(stDate Date)
 }
 //
 
+// problem-20: 
+bool IsDate1AfterDate2(stDate Date1, stDate Date2)
+{
+    return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
+}
+//
+
 int main()
 {
     stDate Date1;
