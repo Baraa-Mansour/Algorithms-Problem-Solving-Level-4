@@ -459,6 +459,16 @@ short GetAge(stDate DateOfBirth)
 }
 //
 
+// problem-14: Get diff even if negative
+int GetDifferenceInDaysNegative(stDate Date1, stDate Date2, bool IncludeEndDay = false)
+{
+    if (IsDate1BeforeDate2(Date1, Date2))
+        return GetDifferenceInDays(Date1, Date2, IncludeEndDay);
+    else
+        return -GetDifferenceInDays(Date2, Date1, IncludeEndDay);
+}
+//
+
 int main()
 {
     stDate Date1;
@@ -466,6 +476,10 @@ int main()
     Date1.Month = 11;
     Date1.Year = 1971;
 
-    short AgeInDays = GetAge(Date1);
-    cout << AgeInDays << endl;
+    stDate Date2;
+    Date2.Day = 7;
+    Date2.Month = 11;
+    Date2.Year = 1971;
+
+    cout << GetDifferenceInDaysNegative(Date2, Date1, 0);
 }
