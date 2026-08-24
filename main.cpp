@@ -884,11 +884,31 @@ short NumberOfOverlapDays(stPeriod Period1, stPeriod Period2)
 }
 //
 
+// problem-26: Valid Date
+bool IsValidDay(stDate Date)
+{
+    return (Date.Day <= 31) && (Date.Day > 0) && (Date.Day <= MonthDays(Date.Month, Date.Year));
+}
+bool IsValidMonth(short Month)
+{
+    return Month > 0 && Month <= 12;
+}
+bool IsDateValid(stDate Date)
+{
+    if (!IsValidMonth(Date.Month))
+        return false;
+    else if (!IsValidDay(Date))
+        return false;
+    else
+        return Date.Year > 0;
+}
+//
+
 int main()
 {
     stDate Date1;
-    Date1.Day = 1;
-    Date1.Month = 1;
+    Date1.Day = 25;
+    Date1.Month = 15;
     Date1.Year = 2022;
 
     stDate Date2;
@@ -914,5 +934,5 @@ int main()
     Period2.StartDate = Date3;
     Period2.EndDate = Date4;
 
-    cout << NumberOfOverlapDays(Period1, Period2);
+    cout << IsDateValid(Date1);
 }
