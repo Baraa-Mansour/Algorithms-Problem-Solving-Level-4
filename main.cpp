@@ -1,6 +1,9 @@
 #include <iostream>
 #include <iomanip> // Add this header for setw
 #include <ctime>
+#include <vector>
+#include <numeric>
+#include <string>
 using namespace std;
 
 // proplem-1: Print the text of number
@@ -904,6 +907,45 @@ bool IsDateValid(stDate Date)
 }
 //
 
+// proplem-27: Convert String <-> Date
+vector<string> SplitString(string S1, string Delim)
+{
+    vector<string> vString;
+    short pos = 0;
+    string sWord; // define a string variable
+    // use find() function to get the position of the delimiters
+    while ((pos = S1.find(Delim)) != std::string::npos)
+    {
+        sWord = S1.substr(0, pos); // store the word
+        if (sWord != "")
+        {
+            vString.push_back(sWord);
+        }
+        S1.erase(0, pos + Delim.length());
+    }
+    if (S1 != "")
+    {
+        vString.push_back(S1); // it adds last word of the string.
+    }
+    return vString;
+}
+stDate ConvertStringToDate(string strDate)
+{
+    vector<string> vDateComponents = SplitString(strDate, "/");
+    stDate Date;
+
+    Date.Day = stoi(vDateComponents[0]);
+    Date.Month = stoi(vDateComponents[1]);
+    Date.Year = stoi(vDateComponents[2]);
+
+    return Date;
+}
+string ConvertDateToString(stDate Date)
+{
+    return to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
+}
+//
+
 int main()
 {
     stDate Date1;
@@ -934,5 +976,7 @@ int main()
     Period2.StartDate = Date3;
     Period2.EndDate = Date4;
 
-    cout << IsDateValid(Date1);
+    PrintDate(ConvertStringToDate("31/1/2012"));
+
+    cout << ConvertDateToString(Date1);
 }
