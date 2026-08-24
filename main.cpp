@@ -413,13 +413,34 @@ stDate IncreaseDateByOneDay(stDate Date)
 }
 //
 
+// proplem-12: Get Diff Between Date in Days
+int GetDifferenceInDays(stDate Date1, stDate Date2, bool IncludeEndDay = false)
+{
+    int DiffDays = 0;
+
+    for (short i = Date1.Year; i < Date2.Year; i++)
+    {
+        DiffDays += YearDays(i);
+    }
+
+    DiffDays -= TotalDaysFromYearStart(Date1.Year, Date1.Month, Date1.Day);
+    DiffDays += TotalDaysFromYearStart(Date2.Year, Date2.Month, Date2.Day);
+
+    return IncludeEndDay ? ++DiffDays : DiffDays;
+}
+//
+
 int main()
 {
-    stDate Date;
-    Date.Day = 10;
-    Date.Month = 10;
-    Date.Year = 2022;
-    stDate NewDate =  AddDaysForDate(2500, Date);
+    stDate Date1;
+    Date1.Day = 1;
+    Date1.Month = 1;
+    Date1.Year = 2022;
+    stDate Date2;
+    Date2.Day = 25;
+    Date2.Month = 3;
+    Date2.Year = 2022;
 
-    cout << NewDate.Day << "/" << NewDate.Month << "/" << NewDate.Year << endl;
+    cout << GetDifferenceInDays(Date1, Date2) << endl;
+    cout << GetDifferenceInDays(Date1, Date2, true) << endl;
 }
