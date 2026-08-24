@@ -832,17 +832,52 @@ enDateCompareResult CompareDates(stDate Date1, stDate Date2)
 }
 //
 
+// problem-22: Overlap period
+struct stPeriod
+{
+    stDate StartDate;
+    stDate EndDate;
+};
+bool IsOverlapPeriods(stPeriod Period1, stPeriod Period2)
+{
+    enDateCompareResult CompareStartWithEnd = CompareDates(Period1.StartDate, Period2.EndDate);
+    enDateCompareResult CompareEndwithStart = CompareDates(Period1.EndDate, Period2.StartDate);
+
+    return 
+        (CompareStartWithEnd == BEFORE || CompareStartWithEnd == EQUAL) &&
+        (CompareEndwithStart == AFTER || CompareEndwithStart == EQUAL);
+}
+//
+
 int main()
 {
     stDate Date1;
     Date1.Day = 1;
-    Date1.Month = 1;
+    Date1.Month = 2;
     Date1.Year = 2022;
 
     stDate Date2;
-    Date2.Day = 1;
-    Date2.Month = 1;
-    Date2.Year = 2000;
+    Date2.Day = 10;
+    Date2.Month = 2;
+    Date2.Year = 2022;
 
-    cout << CompareDates(Date1, Date2);
+    stDate Date3;
+    Date3.Day = 30;
+    Date3.Month = 1;
+    Date3.Year = 2022;
+
+    stDate Date4;
+    Date4.Day = 2;
+    Date4.Month = 2;
+    Date4.Year = 2022;
+
+    stPeriod Period1;
+    Period1.StartDate = Date1;
+    Period1.EndDate = Date2;
+
+    stPeriod Period2;
+    Period2.StartDate = Date3;
+    Period2.EndDate = Date4;
+
+    cout << IsOverlapPeriods(Period1, Period2);
 }
