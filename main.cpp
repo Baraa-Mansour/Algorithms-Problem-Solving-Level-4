@@ -469,6 +469,118 @@ int GetDifferenceInDaysNegative(stDate Date1, stDate Date2, bool IncludeEndDay =
 }
 //
 
+// problem-15: Increase Date Problems
+stDate IncreaseDateByOneWeek(stDate Date)
+{
+    for (int i = 1; i <= 7; i++)
+    {
+        Date = IncreaseDateByOneDay(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByXWeeks(short Weeks, stDate Date)
+{
+    for (short i = 1; i <= Weeks; i++)
+    {
+        Date = IncreaseDateByOneWeek(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByOneMonth(stDate Date)
+{
+    if (Date.Month == 12)
+    {
+        Date.Month = 1;
+        Date.Year++;
+    }
+    else
+    {
+        Date.Month++;
+    }
+    //last check day in date should not exceed max days in the current month
+     // example if date is 31/1/2022 increasing one month should not be 31 / 2 / 2022, it should
+    // be 28/2/2022
+    short NumberOfDaysInCurrentMonth = MonthDays(Date.Month, Date.Year);
+    if (Date.Day > NumberOfDaysInCurrentMonth)
+    {
+        Date.Day = NumberOfDaysInCurrentMonth;
+    }
+    return Date;
+}
+stDate IncreaseDateByXDays(short Days, stDate Date)
+{
+    for (short i = 1; i <= Days; i++)
+    {
+        Date = IncreaseDateByOneDay(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByXMonths(short Months, stDate Date)
+{
+    for (short i = 1; i <= Months; i++)
+    {
+        Date = IncreaseDateByOneMonth(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByOneYear(stDate Date)
+{
+    Date.Year++;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+stDate IncreaseDateByXYears(short Years, stDate Date)
+{
+    for (short i = 1; i <= Years; i++)
+    {
+        Date = IncreaseDateByOneYear(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByXYearsFaster(short Years, stDate Date)
+{
+    Date.Year += Years;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+stDate IncreaseDateByOneDecade(stDate Date)
+{
+    //Period of 10 years
+    Date.Year += 10;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+stDate IncreaseDateByXDecades(short Decade, stDate Date)
+{
+    for (short i = 1; i <= Decade * 10; i++)
+    {
+        Date = IncreaseDateByOneYear(Date);
+    }
+    return Date;
+}
+stDate IncreaseDateByXDecadesFaster(short Decade, stDate Date)
+{
+    Date.Year += Decade * 10;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+stDate IncreaseDateByOneCentury(stDate Date)
+{
+    //Period of 100 years
+    Date.Year += 100;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+stDate IncreaseDateByOneMillennium(stDate Date)
+{
+    //Period of 1000 years
+    Date.Year += 1000;
+    // Note that need to check leap year with 2nd month
+    return Date;
+}
+//
+
+
 int main()
 {
     stDate Date1;
