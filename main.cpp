@@ -856,6 +856,14 @@ short PeriodLength(stPeriod Period, bool IncludeEndDate = false)
 }
 //
 
+// problem-24: Is Date in Period
+bool IsDateInPeriod(stPeriod Period, stDate Date)
+{
+    return !(CompareDates(Period.StartDate, Date) == AFTER ||
+             CompareDates(Period.EndDate, Date) == BEFORE );
+}
+//
+
 int main()
 {
     stDate Date1;
@@ -864,12 +872,12 @@ int main()
     Date1.Year = 2022;
 
     stDate Date2;
-    Date2.Day = 5;
+    Date2.Day = 10;
     Date2.Month = 1;
     Date2.Year = 2022;
 
     stDate Date3;
-    Date3.Day = 30;
+    Date3.Day = 5;
     Date3.Month = 1;
     Date3.Year = 2022;
 
@@ -886,5 +894,5 @@ int main()
     Period2.StartDate = Date3;
     Period2.EndDate = Date4;
 
-    cout << PeriodLength(Period1, true);
+    cout << IsDateInPeriod(Period1, Date3);
 }
