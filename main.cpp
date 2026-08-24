@@ -776,17 +776,47 @@ short CalculateVacationDays(stDate DateFrom, stDate DateTo)
 }
 //
 
+// problem-19: Calculate Actual Vacation Days (weekends are excluded) and get return date 
+stDate CalculateVacationReturnDate(stDate DateFrom, short VacationDays)
+{
+    while (IsWeekEnd(DateFrom))
+    {
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+    }
+
+    for (short i = 1; i <= VacationDays; i++)
+    {
+        if (IsWeekEnd(DateFrom))
+        {
+            VacationDays++;
+        }
+
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+    }
+
+    while (IsWeekEnd(DateFrom))
+    {
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+    }
+
+    return DateFrom;
+}
+void PrintDate(stDate Date)
+{
+    printf("%d/%d/%d\n", Date.Day, Date.Month, Date.Year);
+}
+//
+
 int main()
 {
     stDate Date1;
-    Date1.Day = 24;
-    Date1.Month = 8;
-    Date1.Year = 2026;
+    Date1.Day = 1;
+    Date1.Month = 1;
+    Date1.Year = 2022;
 
-    stDate Date2;
-    Date2.Day = 30;
-    Date2.Month = 8;
-    Date2.Year = 2026;
+    short Vacations = 23;
 
-    cout << CalculateVacationDays(Date1, Date2);
+    stDate Date2 = CalculateVacationReturnDate(Date1, Vacations);
+
+    PrintDate(Date2);
 }
