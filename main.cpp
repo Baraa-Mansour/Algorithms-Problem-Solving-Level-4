@@ -849,16 +849,23 @@ bool IsOverlapPeriods(stPeriod Period1, stPeriod Period2)
 }
 //
 
+// problem-23: Period Length
+short PeriodLength(stPeriod Period, bool IncludeEndDate = false)
+{
+    return GetDifferenceInDays(Period.StartDate, Period.EndDate, IncludeEndDate);
+}
+//
+
 int main()
 {
     stDate Date1;
     Date1.Day = 1;
-    Date1.Month = 2;
+    Date1.Month = 1;
     Date1.Year = 2022;
 
     stDate Date2;
-    Date2.Day = 10;
-    Date2.Month = 2;
+    Date2.Day = 5;
+    Date2.Month = 1;
     Date2.Year = 2022;
 
     stDate Date3;
@@ -879,5 +886,5 @@ int main()
     Period2.StartDate = Date3;
     Period2.EndDate = Date4;
 
-    cout << IsOverlapPeriods(Period1, Period2);
+    cout << PeriodLength(Period1, true);
 }
