@@ -864,6 +864,26 @@ bool IsDateInPeriod(stPeriod Period, stDate Date)
 }
 //
 
+// problem-25: Number of overlap days
+short NumberOfOverlapDays(stPeriod Period1, stPeriod Period2)
+{
+    if (!IsOverlapPeriods(Period1, Period2))
+        return 0;
+
+    bool Start1InPeriod2 = IsDateInPeriod(Period2, Period1.StartDate);
+    bool End1InPeriod2 = IsDateInPeriod(Period2, Period1.EndDate);
+
+    if (Start1InPeriod2 && End1InPeriod2)
+        return PeriodLength(Period1, true);
+    else if (Start1InPeriod2)
+        return GetDifferenceInDays(Period1.StartDate, Period2.EndDate, true);
+    else if (End1InPeriod2)
+        return GetDifferenceInDays(Period2.StartDate, Period1.EndDate, true);
+    else
+        return PeriodLength(Period2, true);
+}
+//
+
 int main()
 {
     stDate Date1;
@@ -882,9 +902,9 @@ int main()
     Date3.Year = 2022;
 
     stDate Date4;
-    Date4.Day = 2;
-    Date4.Month = 2;
-    Date4.Year = 2022;
+    Date4.Day = 30;
+    Date4.Month = 12;
+    Date4.Year = 2050;
 
     stPeriod Period1;
     Period1.StartDate = Date1;
@@ -894,5 +914,5 @@ int main()
     Period2.StartDate = Date3;
     Period2.EndDate = Date4;
 
-    cout << IsDateInPeriod(Period1, Date3);
+    cout << NumberOfOverlapDays(Period1, Period2);
 }
