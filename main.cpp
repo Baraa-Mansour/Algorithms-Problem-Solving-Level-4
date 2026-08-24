@@ -367,6 +367,51 @@ stDate AddDaysForDate(short Days, stDate Date)
 }
 //
 
+// proplem-11: Date proplems
+bool IsDate1BeforeDate2(stDate Date1, stDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : 
+        ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true :
+         (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) 
+        : false);
+}
+bool IsDate1EqualDate2(stDate Date1, stDate Date2)
+{
+    return (Date1.Year == Date2.Year) ? ((Date1.Month ==
+            Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false)
+            : false) : false;
+}
+bool IsLastDayInMonth(stDate Date)
+{
+    return (Date.Day == MonthDays(Date.Month, Date.Year));
+}
+bool IsLastMonthInYear(short Month)
+{
+    return (Month == 12);
+}
+stDate IncreaseDateByOneDay(stDate Date)
+{
+    if (IsLastDayInMonth(Date))
+    {
+        if (IsLastMonthInYear(Date.Month))
+        {
+            Date.Month = 1;
+            Date.Day = 1;
+            Date.Year++;
+        }
+        else
+        {
+            Date.Day = 1;
+            Date.Month++;
+        }
+    }
+    else
+    {
+        Date.Day++;
+    }
+    return Date;
+}
+//
 
 int main()
 {
