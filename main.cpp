@@ -703,19 +703,71 @@ stDate DecreaseDateByOneMillennium(stDate Date)
     Date.Year -= 1000;
     return Date;
 }
+//
 
+// proplem-17: More Date Proplems
+enum enWeekEnd
+{
+    FRI = 5,
+    SAT = 6
+};
+short DayOrderInWeak(stDate Date)
+{
+    short a, y, m;
+    a = (14 - Date.Month) / 12;
+    y = Date.Year - a;
+    m = Date.Month + (12 * a) - 2;
+    // Gregorian:
+    //0:sun, 1:Mon, 2:Tue...etc
+    return (Date.Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7;
+}
+bool IsEndOfWeak(stDate Date)
+{
+    short DayOrder = DayOrderInWeak(Date);
+
+    return DayOrder == 6;
+}
+bool IsWeekEnd(stDate Date)
+{
+    short DayOrder = DayOrderInWeak(Date);
+
+    return DayOrder == (short)enWeekEnd::FRI || DayOrder == (short)enWeekEnd::SAT;
+}
+bool IsBusinessDay(stDate Date)
+{
+    return !IsWeekEnd(Date);
+}
+short DaysUntilTheEndOfWeek(stDate Date)
+{
+    short DayOrder = DayOrderInWeak(Date);
+
+    return 6 - DayOrder;
+}
+short DaysUntilTheEndOfMonth(stDate Date)
+{
+    short NumberOfDayInMonth = MonthDays(Date.Month, Date.Year);
+
+    return NumberOfDayInMonth - Date.Day;
+}
+short DaysUntilTheEndOfYear(stDate Date)
+{
+    stDate EndOfYear;
+    EndOfYear.Day = 31;
+    EndOfYear.Month = 12;
+    EndOfYear.Year = Date.Year;
+
+    short DifferenceBeetweenDate = GetDifferenceInDays(Date, EndOfYear, true);
+
+    return DifferenceBeetweenDate;
+}
+//
 
 int main()
 {
     stDate Date1;
-    Date1.Day = 6;
-    Date1.Month = 11;
-    Date1.Year = 1971;
+    Date1.Day = 24;
+    Date1.Month = 8;
+    Date1.Year = 2026;
 
-    stDate Date2;
-    Date2.Day = 7;
-    Date2.Month = 11;
-    Date2.Year = 1971;
-
-    cout << GetDifferenceInDaysNegative(Date2, Date1, 0);
+    cout << DaysUntilTheEndOfYear(Date1);
 }
