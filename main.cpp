@@ -946,37 +946,41 @@ string ConvertDateToString(stDate Date)
 }
 //
 
+// problem-28: Print Date with format
+string ReplaceStringWords(string str, string WordToReplace, string NewWord)
+{
+    short Pos = str.find(WordToReplace);
+    while (Pos != std::string::npos)
+    {
+        str.replace(Pos, WordToReplace.length(), NewWord);
+
+        Pos = str.find(WordToReplace);
+    }
+    return str;
+}
+string FormateDate(stDate Date, string Format = "dd/mm/yyyy")
+{
+    string FormatedDate = "";
+
+    FormatedDate = ReplaceStringWords(Format, "dd", to_string(Date.Day));
+    FormatedDate = ReplaceStringWords(FormatedDate, "mm", to_string(Date.Month));
+    FormatedDate = ReplaceStringWords(FormatedDate, "yyyy", to_string(Date.Year));
+
+    return FormatedDate;
+}
+//
+
 int main()
 {
-    stDate Date1;
-    Date1.Day = 25;
-    Date1.Month = 15;
-    Date1.Year = 2022;
+    stDate Date;
+    Date.Day = 25;
+    Date.Month = 15;
+    Date.Year = 2022;
 
-    stDate Date2;
-    Date2.Day = 10;
-    Date2.Month = 1;
-    Date2.Year = 2022;
-
-    stDate Date3;
-    Date3.Day = 5;
-    Date3.Month = 1;
-    Date3.Year = 2022;
-
-    stDate Date4;
-    Date4.Day = 30;
-    Date4.Month = 12;
-    Date4.Year = 2050;
-
-    stPeriod Period1;
-    Period1.StartDate = Date1;
-    Period1.EndDate = Date2;
-
-    stPeriod Period2;
-    Period2.StartDate = Date3;
-    Period2.EndDate = Date4;
-
-    PrintDate(ConvertStringToDate("31/1/2012"));
-
-    cout << ConvertDateToString(Date1);
+    cout << "\n" << FormateDate(Date) << "\n";
+    cout << "\n" << FormateDate(Date, "yyyy/dd/mm") << "\n";
+    cout << "\n" << FormateDate(Date, "mm/dd/yyyy") << "\n";
+    cout << "\n" << FormateDate(Date, "mm-dd-yyyy") << "\n";
+    cout << "\n" << FormateDate(Date, "dd-mm-yyyy") << "\n";
+    cout << "\n" << FormateDate(Date, "Day:dd, Month:mm, Year:yyyy") << "\n";
 }
