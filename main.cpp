@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip> // Add this header for setw
+#include <ctime>
 using namespace std;
 
 // proplem-1: Print the text of number
@@ -430,17 +431,41 @@ int GetDifferenceInDays(stDate Date1, stDate Date2, bool IncludeEndDay = false)
 }
 //
 
+// proplem-13: Get Age
+tm GetCurrentSystemDate()
+{
+    time_t t = time(nullptr);
+    tm now;
+    localtime_s(&now, &t);
+
+    return now;
+}
+stDate GetCurrentDate()
+{
+    tm tmObject = GetCurrentSystemDate();
+
+    stDate Date;
+    Date.Year = 1900 + tmObject.tm_year;
+    Date.Month = tmObject.tm_mon + 1;
+    Date.Day = tmObject.tm_mday;
+
+    return Date;
+}
+short GetAge(stDate DateOfBirth)
+{
+    stDate CurrentDate = GetCurrentDate();
+
+    return GetDifferenceInDays(DateOfBirth, CurrentDate, true);
+}
+//
+
 int main()
 {
     stDate Date1;
-    Date1.Day = 1;
-    Date1.Month = 1;
-    Date1.Year = 2022;
-    stDate Date2;
-    Date2.Day = 25;
-    Date2.Month = 3;
-    Date2.Year = 2022;
+    Date1.Day = 6;
+    Date1.Month = 11;
+    Date1.Year = 1971;
 
-    cout << GetDifferenceInDays(Date1, Date2) << endl;
-    cout << GetDifferenceInDays(Date1, Date2, true) << endl;
+    short AgeInDays = GetAge(Date1);
+    cout << AgeInDays << endl;
 }
