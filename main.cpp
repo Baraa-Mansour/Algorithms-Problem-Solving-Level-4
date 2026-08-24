@@ -762,6 +762,20 @@ short DaysUntilTheEndOfYear(stDate Date)
 }
 //
 
+// problem-18: Calculate Actual Vacation Days (weekends are excluded)
+short CalculateVacationDays(stDate DateFrom, stDate DateTo)
+{
+    short DaysCount = 0;
+    while (IsDate1BeforeDate2(DateFrom, DateTo))
+    {
+        if (IsBusinessDay(DateFrom))
+            DaysCount++;
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+    }
+    return DaysCount;
+}
+//
+
 int main()
 {
     stDate Date1;
@@ -769,5 +783,10 @@ int main()
     Date1.Month = 8;
     Date1.Year = 2026;
 
-    cout << DaysUntilTheEndOfYear(Date1);
+    stDate Date2;
+    Date2.Day = 30;
+    Date2.Month = 8;
+    Date2.Year = 2026;
+
+    cout << CalculateVacationDays(Date1, Date2);
 }
